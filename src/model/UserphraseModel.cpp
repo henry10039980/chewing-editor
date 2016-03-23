@@ -196,10 +196,33 @@ void UserphraseModel::exportUserphrase(std::shared_ptr<UserphraseExporter> expor
 
 void UserphraseModel::add(const QString &phrase, const QString &bopomofo)
 {
-    auto ret = chewing_userphrase_add(
+    auto ret = chewing_userphrase_add( 
         ctx_.get(),
         phrase.toUtf8().constData(),
         bopomofo.toUtf8().constData());
+   
+    if (phrase.toUtf8()==
+    // ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙ
+    "\xE3\x84\x85"||"\xE3\x84\x86"||"\xE3\x84\x87"||"\xE3\x84\x88"||"\xE3\x84\x89"||
+    "\xE3\x84\x8A"||"\xE3\x84\x8B"||"\xE3\x84\x8C"||"\xE3\x84\x8D"||"\xE3\x84\x8E"||
+    "\xE3\x84\x8F"||"\xE3\x84\x90"||"\xE3\x84\x91"||"\xE3\x84\x92"||"\xE3\x84\x93"||
+    "\xE3\x84\x94"||"\xE3\x84\x95"||"\xE3\x84\x96"||"\xE3\x84\x97"||"\xE3\x84\x98"||
+    "\xE3\x84\x99"||
+
+    // ㄧㄨㄩ
+    "\xE3\x84\xA7"||"\xE3\x84\xA8"||"\xE3\x84\xA9"||
+
+    // ㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦ
+    "\xE3\x84\x9A"||"\xE3\x84\x9B"||"\xE3\x84\x9C"||"\xE3\x84\x9D"||"\xE3\x84\x9E"||
+    "\xE3\x84\x9F"||"\xE3\x84\xA0"||"\xE3\x84\xA1"||"\xE3\x84\xA2"||"\xE3\x84\xA3"||
+    "\xE3\x84\xA4"||"\xE3\x84\xA5"||"\xE3\x84\xA6"||
+
+    // ˙ˊˇˋ
+    "\xCB\x99"||"\xCB\x8A"||"\xCB\x87"||"\xCB\x8B") {
+        ret = 0;
+        qWarning() << "chewing_userphrase_add(): phrase shouldn't be \"bopomofo\" :"<<phrase.toUtf8();
+    }
+
 
     if (ret > 0) {
         emit beginResetModel();

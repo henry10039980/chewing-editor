@@ -1,0 +1,2 @@
+/usr/bin/ar cr libexporter.a  CMakeFiles/exporter.dir/src/exporter/ChewingExporter.cpp.o CMakeFiles/exporter.dir/src/exporter/UserphraseExporter.cpp.o CMakeFiles/exporter.dir/exporter_automoc.cpp.o
+/usr/bin/ranlib libexporter.a

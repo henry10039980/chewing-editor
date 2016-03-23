@@ -1,0 +1,2 @@
+/usr/bin/ar cr libimporter.a  CMakeFiles/importer.dir/src/importer/UserphraseImporter.cpp.o CMakeFiles/importer.dir/src/importer/ChewingImporter.cpp.o CMakeFiles/importer.dir/src/importer/HashImporter.cpp.o CMakeFiles/importer.dir/importer_automoc.cpp.o
+/usr/bin/ranlib libimporter.a

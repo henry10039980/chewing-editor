@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=0.0.2
+Type=Application
+Name=Chewing Editor
+Comment=Chewing Userphrase Editor
+Exec=chewing-editor
+Icon=chewing-editor
