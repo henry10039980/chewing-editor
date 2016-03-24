@@ -23,14 +23,39 @@
 
 #include <QDebug>
 
+
+
 UserphraseSortFilterProxyModel::UserphraseSortFilterProxyModel(QObject *parent)
     :QSortFilterProxyModel{parent}
 {
 }
 
 void UserphraseSortFilterProxyModel::add(std::shared_ptr<QString> phrase, std::shared_ptr<QString> bopomofo)
-{
-    sourceModel()->add(phrase, bopomofo);
+{       
+    const QString &_phrase = *phrase;
+        
+    if ( // ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙ
+        !strcmp(_phrase.toUtf8(), "\xE3\x84\x85") || !strcmp(_phrase.toUtf8(), "\xE3\x84\x86")||!strcmp(_phrase.toUtf8(), "\xE3\x84\x87")||!strcmp(_phrase.toUtf8(), "\xE3\x84\x88")||
+        !strcmp(_phrase.toUtf8(), "\xE3\x84\x89") || !strcmp(_phrase.toUtf8(), "\xE3\x84\x8A")||!strcmp(_phrase.toUtf8(), "\xE3\x84\x8B")||!strcmp(_phrase.toUtf8(), "\xE3\x84\x8C")||
+        !strcmp(_phrase.toUtf8(), "\xE3\x84\x8D") || !strcmp(_phrase.toUtf8(), "\xE3\x84\x8E")||!strcmp(_phrase.toUtf8(), "\xE3\x84\x8F")||!strcmp(_phrase.toUtf8(), "\xE3\x84\x90")||
+        !strcmp(_phrase.toUtf8(), "\xE3\x84\x91") || !strcmp(_phrase.toUtf8(), "\xE3\x84\x92")||!strcmp(_phrase.toUtf8(), "\xE3\x84\x93")||!strcmp(_phrase.toUtf8(), "\xE3\x84\x94")||
+        !strcmp(_phrase.toUtf8(), "\xE3\x84\x95") || !strcmp(_phrase.toUtf8(), "\xE3\x84\x96")||!strcmp(_phrase.toUtf8(), "\xE3\x84\x97")||!strcmp(_phrase.toUtf8(), "\xE3\x84\x98")||
+        !strcmp(_phrase.toUtf8(), "\xE3\x84\x99") ||  
+         //  ㄧㄨㄩ
+        !strcmp(_phrase.toUtf8(), "\xE3\x84\xA7") || !strcmp(_phrase.toUtf8(), "\xE3\x84\xA8")||!strcmp(_phrase.toUtf8(), "\xE3\x84\xA9")|| 
+         // ㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦ
+        !strcmp(_phrase.toUtf8(), "\xE3\x84\x9A") || !strcmp(_phrase.toUtf8(), "\xE3\x84\x9B")||!strcmp(_phrase.toUtf8(), "\xE3\x84\x9C")||!strcmp(_phrase.toUtf8(), "\xE3\x84\x9D")||
+        !strcmp(_phrase.toUtf8(), "\xE3\x84\x9E") || !strcmp(_phrase.toUtf8(), "\xE3\x84\x9F")||!strcmp(_phrase.toUtf8(), "\xE3\x84\xA1")||!strcmp(_phrase.toUtf8(), "\xE3\x84\xA2")||
+        !strcmp(_phrase.toUtf8(), "\xE3\x84\xA3") || !strcmp(_phrase.toUtf8(), "\xE3\x84\xA4")||!strcmp(_phrase.toUtf8(), "\xE3\x84\xA5")||!strcmp(_phrase.toUtf8(), "\xE3\x84\xA6")||
+        // ˙ˊˇˋ
+        !strcmp(_phrase.toUtf8(), "\xCB\x99") || !strcmp(_phrase.toUtf8(), "\xCB\x8A")||!strcmp(_phrase.toUtf8(), "\xCB\x87")||!strcmp(_phrase.toUtf8(), "\xCB\x8B")
+        ) {
+        
+        qWarning() << "UserphraseSortFilterProxyModel:add phrase shouldn't be \"bopomofo\" "<<_phrase.toUtf8();
+    }else{
+        sourceModel()->add(phrase, bopomofo);
+    }
+         
 }
 
 void UserphraseSortFilterProxyModel::remove(QModelIndexList indexList)
